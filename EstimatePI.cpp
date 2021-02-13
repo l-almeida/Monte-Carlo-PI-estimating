@@ -42,7 +42,7 @@ uint64_t get_number_of_points()
             puts("Error: x needs to greater than 0 and less than 20.");
             continue;
         }
-        points = static_cast<uint64_t>(floor(pow(10, exp)));
+        points = static_cast<uint64_t>(floorl(powl(10, exp)));
         printf("%llu points will be generated.\n", points);
         success = true;
     }
@@ -67,11 +67,11 @@ int get_number_of_threads()
     return number_of_threads;
 }
 
-double estimate_pi_monte_carlo_method(const int points)
+double estimate_pi_monte_carlo_method(const uint64_t points)
 {
     Random rand;
-    int num_point_circle = 0;
-    int num_point_total = 0;
+    uint64_t num_point_circle = 0;
+    uint64_t num_point_total = 0;
     for (int i = 0; i < points; ++i)
     {
         auto x = rand.get_uniform();
@@ -101,18 +101,18 @@ double start_calculations(const uint64_t points, const int number_of_threads)
     }
     points_factor /= number_of_threads;
 
-    auto pi = 4.0 * points_factor;
+    const auto pi = 4.0 * points_factor;
     return pi;
 }
 
 int main()
 {
-    uint64_t points = get_number_of_points();
-    int number_of_threads = get_number_of_threads();
+    const uint64_t points = get_number_of_points();
+    const int number_of_threads = get_number_of_threads();
 
-    auto start = std::chrono::steady_clock::now();
-    auto pi = start_calculations(points, number_of_threads);
-    auto end = std::chrono::steady_clock::now();
+    const auto start = std::chrono::steady_clock::now();
+    const auto pi = start_calculations(points, number_of_threads);
+    const auto end = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
 
     printf("\nElapsed time: %fs\n", elapsed_seconds.count());
