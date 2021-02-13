@@ -33,8 +33,8 @@ uint64_t get_number_of_points()
     while (!success)
     {
         int exp = 0;
-        puts("Number of points to be generated is defined in a power of base 10 (10^x).\n");
-        puts("x needs to be in range 0 < x < 20\n");
+        puts("Number of points to be generated is defined in a power of base 10 (10^x).");
+        puts("x needs to be in range 0 < x < 20");
         puts("Define the value of x: ");
         scanf("%d", &exp);
         if (exp <= 0 || exp >= 20)
