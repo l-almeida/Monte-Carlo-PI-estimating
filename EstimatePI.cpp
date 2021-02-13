@@ -35,7 +35,7 @@ uint64_t get_number_of_points()
         int exp = 0;
         puts("Number of points to be generated is defined in a power of base 10 (10^x).");
         puts("x needs to be in range 0 < x < 20");
-        puts("Define the value of x: ");
+        printf("Define the value of x: ");
         scanf("%d", &exp);
         if (exp <= 0 || exp >= 20)
         {
@@ -55,7 +55,7 @@ int get_number_of_threads()
     bool success = false;
     while (!success)
     {
-        puts("Define the number of threads: ");
+        printf("Define the number of threads: ");
         scanf("%d", &number_of_threads);
         if (number_of_threads < 0)
         {
@@ -115,7 +115,7 @@ int main()
     auto end = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
 
-    printf("Elapsed time: %fs\n", elapsed_seconds);
+    printf("\nElapsed time: %fs\n", elapsed_seconds.count());
     printf("%.8f estimated number of PI\n", pi);
     printf("%.8f real number of PI\n", 3.14159265);
 }
