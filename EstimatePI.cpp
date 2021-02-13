@@ -32,17 +32,17 @@ uint64_t get_number_of_points()
     bool success = false;
     while (!success)
     {
-        int exp = 0;
+        double exp = 0;
         puts("Number of points to be generated is defined in a power of base 10 (10^x).");
-        puts("x needs to be in range 0 < x < 20");
+        puts("x needs to be in range 1 <= x <= 19");
         printf("Define the value of x: ");
-        scanf("%d", &exp);
-        if (exp <= 0 || exp >= 20)
+        scanf("%lf", &exp);
+        if (exp < 1.0 || exp > 19.0)
         {
             puts("Error: x needs to greater than 0 and less than 20.");
             continue;
         }
-        points = static_cast<uint64_t>(pow(10, exp));
+        points = static_cast<uint64_t>(floor(pow(10, exp)));
         printf("%llu points will be generated.\n", points);
         success = true;
     }
