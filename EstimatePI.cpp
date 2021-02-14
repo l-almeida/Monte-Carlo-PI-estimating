@@ -1,19 +1,16 @@
 #include <cstdio>
 #include <cstdint>
 #include <random>
-#include <cstdint>
 #include <thread>
 #include <future>
 #include <chrono>
 #include <cmath>
-
 
 class Random
 {
     std::random_device rd;
     std::mt19937 gen;
     std::uniform_real_distribution<> dis;
-
 public:
     Random(double a = 0.0, double b = 1.0) : dis(a, b)
     {
@@ -26,9 +23,9 @@ public:
     }
 };
 
-uint64_t get_number_of_points()
+auto get_number_of_points() -> uint64_t
 {
-    uint64_t points = 0llu;
+    uint64_t points = 0;
     bool success = false;
     while (!success)
     {
@@ -49,7 +46,7 @@ uint64_t get_number_of_points()
     return points;
 }
 
-int get_number_of_threads()
+auto get_number_of_threads() -> int
 {
     int number_of_threads = 2;
     bool success = false;
@@ -67,12 +64,12 @@ int get_number_of_threads()
     return number_of_threads;
 }
 
-double estimate_pi_monte_carlo_method(const uint64_t points)
+auto estimate_pi_monte_carlo_method(const uint64_t points) -> double
 {
     Random rand;
     uint64_t num_point_circle = 0;
     uint64_t num_point_total = 0;
-    for (int i = 0; i < points; ++i)
+    for (auto i = points; i > 0; --i)
     {
         auto x = rand.get_uniform();
         auto y = rand.get_uniform();
@@ -86,7 +83,7 @@ double estimate_pi_monte_carlo_method(const uint64_t points)
     return (points_circle / points_total);
 }
 
-double start_calculations(const uint64_t points, const int number_of_threads)
+auto start_calculations(const uint64_t points, const int number_of_threads) -> double
 {
     const uint64_t points_per_thread = (points / number_of_threads);
     std::vector<std::future<double>> future_pi;
@@ -101,11 +98,11 @@ double start_calculations(const uint64_t points, const int number_of_threads)
     }
     points_factor /= number_of_threads;
 
-    const auto pi = 4.0 * points_factor;
+    auto pi = 4.0 * points_factor;
     return pi;
 }
 
-int main()
+auto main() -> int
 {
     const uint64_t points = get_number_of_points();
     const int number_of_threads = get_number_of_threads();
@@ -113,7 +110,7 @@ int main()
     const auto start = std::chrono::steady_clock::now();
     const auto pi = start_calculations(points, number_of_threads);
     const auto end = std::chrono::steady_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end - start;
+    const std::chrono::duration<double> elapsed_seconds = end - start;
 
     printf("\nElapsed time: %fs\n", elapsed_seconds.count());
     printf("%.8f estimated number of PI\n", pi);
